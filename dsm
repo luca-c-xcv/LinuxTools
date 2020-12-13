@@ -12,7 +12,8 @@ function usage()
 		echo -e "  -on \t to turn on the right monitor"
 		echo -e "  -off \t to shutdown the right monitor"
 		echo -e "  -prt \t to put the left monitor in portrait mode"
-		echo -e "  -off \t to put the left monitor in landscape mode"
+		echo -e "  -norm \t to put the left monitor in landscape mode"
+		echo -e "  -ck \t to print the connected monitors"
 		echo -e "  -h \t to display this help"
 		echo -e "\n\n"
  	}
