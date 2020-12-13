@@ -1,0 +1,43 @@
+#!/bin/bash
+
+MONITORRT=HDMI-0
+MONITORLT=DVI-D-0
+
+function usage()
+	{
+		echo -e "Usage: $0 [OPTION]"
+		echo -e "DSM - dual screen manager is based on 'xrandr' engine used to handle X11 server."
+		echo -e "To run this script into your configuration you have to exec, at the first run, the '-ck' option and substitute the output in the variables into the script file"
+		echo -e "It requires one of the following OPTIONS to runs\n"
+		echo -e "  -on \t to turn on the right monitor"
+		echo -e "  -off \t to shutdown the right monitor"
+		echo -e "  -prt \t to put the left monitor in portrait mode"
+		echo -e "  -off \t to put the left monitor in landscape mode"
+		echo -e "  -h \t to display this help"
+		echo -e "\n\n"
+ 	}
+
+if [ $# -eq 1 ]; then
+		if [ -n "$1" ]; then
+			case "$1" in
+				-on) xrandr --output $MONITORRT --mode 1920x1080 --right-of DVI-D-0
+				;;
+				-off) xrandr --output $MONITORRT --off
+				;;
+				-prt) xrandr --output $MONITORLT --rotate right
+				;;
+				-norm) xrandr --output $MONITORLT --rotate normal
+				;;
+				-ck) xrandr | grep -w connected | cut -d ' ' -f1
+				;;
+				-h) usage
+				;;
+				*) 	echo -e "Option $1 not recognized"
+						echo "Try '$0 -h' for more information."
+				;;
+			esac	
+		fi
+	else
+		echo "missing arguments" 
+		echo "Try '$0 -h' for more information."
+fi
