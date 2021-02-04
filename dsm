@@ -6,16 +6,19 @@ MONITORLT=DVI-D-0
 function usage()
 	{
 		echo -e "Usage: $0 [OPTION]"
-		echo -e "DSM - dual screen manager is based on 'xrandr' engine used to handle X11 server."
-		echo -e "To run this script into your configuration you have to exec, at the first run, the '-ck' option and substitute the output in the variables into the script file"
-		echo -e "It requires one of the following OPTIONS to runs\n"
-		echo -e "  -on \t to turn on the right monitor"
-		echo -e "  -off \t to shutdown the right monitor"
-		echo -e "  -prt \t to put the left monitor in portrait mode"
-		echo -e "  -norm \t to put the left monitor in landscape mode"
-		echo -e "  -ck \t to print the connected monitors"
-		echo -e "  -h \t to display this help"
-		echo -e "\n\n"
+		echo -e ""
+		echo -e "DSM - dual screen manager based on 'xrandr' engine (used to handle X11 server)."
+		echo -e "To run this script into your configuration, the first time you have to exec the '-ck' option and substitute the output in the variables into the script"
+		echo -e ""
+		echo -e ""
+		echo -e "It requires one of the following OPTIONS\n"
+		echo -e " -on\tto switch on the right monitor"
+		echo -e " -off\tto shutdown the right monitor"
+		echo -e " -prt\tto put the left monitor in portrait mode"
+		echo -e " -norm\tto put the left monitor in landscape mode"
+		echo -e " -ck\tto check the monitors configuration"
+		echo -e " -h\tto display this help"
+		echo -e "\n"
  	}
 
 if [ $# -eq 1 ]; then
