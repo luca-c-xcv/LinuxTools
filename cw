@@ -1,6 +1,6 @@
 #!/bin/bash
 
-CATEGORIES="water" #favourite subjects (separete with ',')
+#CATEGORIES="summer,tropical,beach,water,sunset" #favourite subjects (separete with ',')
 									 #(e.g.: sub1,sub2,sub3)
 __DIRPATH=/tmp/bg #working directory
 __FILE=""  #wallpaper name
@@ -43,7 +43,7 @@ function setupwp()
 
 
 		#download image
-		wget -q https://source.unsplash.com/2560x1600/?$CATEGORIES -O $__FILE
+		wget -q https://source.unsplash.com/2560x1600/?$1 -O $__FILE
 
 
 		#delete the old wallpapers
@@ -68,7 +68,7 @@ while [ true ];
 		online=$?
 		if [ $online -eq 0 ]
 			then
-				setupwp
+				setupwp $1
 				exit
 			fi
 	done
