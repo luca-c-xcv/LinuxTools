@@ -1,7 +1,9 @@
 #!/bin/bash
 
-#CATEGORIES="summer,tropical,beach,water,sunset" #favourite subjects (separete with ',')
-									 #(e.g.: sub1,sub2,sub3)
+# author	luca-lc
+# brief		downloads an image from unsplash, using the passed subjects as argument, and sets it as desktop wallpaper
+#					example "/path/to/cw summer,tropical,beach,water,sunset"
+
 __DIRPATH=/tmp/bg #working directory
 __FILE=""  #wallpaper name
 stop=false
