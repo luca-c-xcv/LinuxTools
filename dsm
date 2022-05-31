@@ -1,8 +1,5 @@
 #!/bin/bash
 
-MONITORRT=HDMI-0
-MONITORLT=DVI-D-0
-
 function usage()
 	{
 		echo -e "Usage: $0 [OPTION]"
@@ -20,6 +17,34 @@ function usage()
 		echo -e " -h\tto display this help"
 		echo -e "\n"
  	}
+
+
+
+
+
+# function inst_all () 
+# 	{
+# 		vars=(MONITORLT MONITORRT)
+# 		declare -A monitors
+# 		i=0
+# 		xrandr | grep -w connected | cut -d ' ' -f1 | \
+# 		while read mon; do
+# 			monitors+=([vars[$i]]=$mon)
+# 			i=$((i+1))
+# 		done
+
+# 		echo ${monitors[@]}
+# 		# read -p "Which monitor is on the left? $scr"
+# 		# read -p "Are you sure? $sure"
+
+# 		# MONITORLT=${array[$scr]}
+# 		# MONITORRT=${array[@]/$MONITORLT}
+
+# 		# echo "MonitorLT = $MONITORLT"
+# 		# echo "MonitorRT = $MONITORRT"
+# 	}
+
+
 
 if [ $# -eq 1 ]; then
 		if [ -n "$1" ]; then

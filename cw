@@ -45,7 +45,7 @@ function setupwp()
 
 
 		#download image
-		wget -q https://source.unsplash.com/2560x1600/?$1 -O $__FILE
+		wget -q https://source.unsplash.com/3840x2160/?$1 -O $__FILE
 
 
 		#delete the old wallpapers
