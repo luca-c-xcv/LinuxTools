@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# scorre i film AVI in una cartella precisa presa in input, divide nome da estensione e crea un MKV nella sottocartella "OK" aggiungendo al file AVI i relativi srt con estensione ".en.srt" per l'inglese ed estensione ".it.srt" per quelli in italiano. (usa "mkvmerge" per creare il nuovo file)
+
+newdir="OK"
+
+for film in "$1"/*.avi; do
+	f=${film%.*}
+	dir="$(dirname "${f}")"
+	b="$(basename "${f}")"
+	/usr/bin/mkvmerge --ui-language en_US --output "$dir/$newdir/$b.mkv" --language 0:und --language 1:ita --language 2:eng "(" "$f.avi" ")" --language 0:eng "(" "$f.en.srt" ")" --language 0:ita "(" "$f.it.srt" ")" --track-order 0:0,0:1,0:2,1:0,2:0
+done
