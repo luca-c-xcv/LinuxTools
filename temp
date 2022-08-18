@@ -1,0 +1,8 @@
+#!/bin/bash
+
+
+cpuTEMP=$(sensors | grep CPU | cut -f 2 -d ":" | cut -f11 -d ' ')
+fanRMP=$(sensors | grep fan1 | cut -f 2 -d ":" | cut -f9-10 -d ' ')
+
+echo -e "CPU: $cpuTEMP \t FAN: $fanRMP"
+

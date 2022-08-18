@@ -1,0 +1,51 @@
+#!/usr/bin/env python3.8
+
+import subprocess
+import os
+
+if __name__ == "__main__":
+    eth = False
+    wifi = False
+    typeface = subprocess.check_output( "/usr/bin/xrescat i3xrocks.value.font", shell = True,
+                                        universal_newlines = True )
+    labelColor = subprocess.check_output( "/usr/bin/xrescat i3xrocks.label.color", shell = True,
+                                          universal_newlines = True )
+    valueColor = subprocess.check_output( "/usr/bin/xrescat i3xrocks.value.color", shell = True,
+                                          universal_newlines = True )
+    wifiLabel = subprocess.check_output( "/usr/bin/xrescat i3xrocks.label.wifi ", shell = True,
+                                         universal_newlines = True )
+    ethLabel = subprocess.check_output( "/usr/bin/xrescat i3xrocks.label.wired ", shell = True,
+                                        universal_newlines = True )
+    bashCommand = "nmcli -f TYPE,STATE connection show --active"
+    output_stream = os.popen( bashCommand )
+    output = output_stream.read( )
+
+    myList = [ item for item in output.split( '\n' ) ]
+    myLList = [ ]
+    for item in myList:
+        item = " ".join( item.split( ) )
+        myLList.append( [ i for i in item.split( ' ' ) ] )
+
+    for item in myLList:
+        if "ethernet" in item and "activated" in item:
+            eth = True
+        if "wifi" in item and "activated" in item:
+            wifi = True
+
+    pango_output = "<span color=\"{labelColor}\">{label}  </span>"
+
+    env_button = os.environ.get( 'button' )
+    cmd_open = "/usr/bin/i3-msg -q exec /bin/false"
+
+    if eth == True and wifi == False:
+        print( pango_output.format( valueColor = valueColor, labelColor = labelColor, typeface = typeface, label = ethLabel ) )
+        cmd_open = "/usr/bin/i3-msg -q exec /usr/bin/gnome-control-center network"
+    elif eth == False and wifi == True:
+        print( pango_output.format( valueColor = valueColor, labelColor = labelColor, typeface = typeface, label = wifiLabel ) )
+        cmd_open = "/usr/bin/i3-msg -q exec /usr/bin/gnome-control-center wifi"
+    elif eth == True and wifi == True:
+        print( pango_output.format( valueColor = valueColor, labelColor = labelColor, typeface = typeface, label = wifiLabel + ethLabel ) )
+        cmd_open = "/usr/bin/i3-msg -q exec /usr/bin/gnome-control-center"
+
+    if env_button == "1":
+        result = subprocess.check_output(cmd_open, shell=True)
