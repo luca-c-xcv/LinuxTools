@@ -1,57 +1,38 @@
 #!/bin/bash
 
+MONITORRT=HDMI-0
+MONITORLT=DVI-D-0
+
 function usage()
 	{
 		echo -e "Usage: $0 [OPTION]"
 		echo -e ""
-		echo -e "DSM - dual screen manager based on 'xrandr' engine (used to handle X11 server)."
-		echo -e "To run this script into your configuration, the first time you have to exec the '-ck' option and substitute the output in the variables into the script"
+		echo -e "DSM - dual screen manager is based on 'xrandr' engine used to handle X11 server."
+		echo -e "To run this script into your configuration you have to exec, at the first run, the '-ck' option and substitute the output in the variables into the script file"
 		echo -e ""
 		echo -e ""
 		echo -e "It requires one of the following OPTIONS\n"
-		echo -e " -on\tto switch on the right monitor"
-		echo -e " -off\tto shutdown the right monitor"
-		echo -e " -prt\tto put the left monitor in portrait mode"
-		echo -e " -norm\tto put the left monitor in landscape mode"
-		echo -e " -ck\tto check the monitors configuration"
-		echo -e " -h\tto display this help"
+		echo -e " -onr\t turn on the right monitor"
+		echo -e " -onl\t turn on the left monitor"
+		echo -e " -offr\t shutdown the right monitor"
+		echo -e " -offl\t shutdown the left monitor"
+		echo -e " -prt\t put the left monitor in portrait mode"
+		echo -e " -norm\t put the left monitor in landscape mode"
+		echo -e " -ck\t check the monitors configuration"
+		echo -e " -h\t display this help"
 		echo -e "\n"
  	}
-
-
-
-
-
-# function inst_all () 
-# 	{
-# 		vars=(MONITORLT MONITORRT)
-# 		declare -A monitors
-# 		i=0
-# 		xrandr | grep -w connected | cut -d ' ' -f1 | \
-# 		while read mon; do
-# 			monitors+=([vars[$i]]=$mon)
-# 			i=$((i+1))
-# 		done
-
-# 		echo ${monitors[@]}
-# 		# read -p "Which monitor is on the left? $scr"
-# 		# read -p "Are you sure? $sure"
-
-# 		# MONITORLT=${array[$scr]}
-# 		# MONITORRT=${array[@]/$MONITORLT}
-
-# 		# echo "MonitorLT = $MONITORLT"
-# 		# echo "MonitorRT = $MONITORRT"
-# 	}
-
-
 
 if [ $# -eq 1 ]; then
 		if [ -n "$1" ]; then
 			case "$1" in
-				-on) xrandr --output $MONITORRT --mode 1920x1080 --right-of DVI-D-0
+				-onr) xrandr --output $MONITORRT --mode 1920x1080 --right-of $MONITORLT
 				;;
-				-off) xrandr --output $MONITORRT --off
+				-onl) xrandr --output $MONITORLT --mode 1920x1080 --left-of $MONITORRT
+				;;
+				-offr) xrandr --output $MONITORRT --off
+				;;
+				-offl) xrandr --output $MONITORLT --off
 				;;
 				-prt) xrandr --output $MONITORLT --rotate right
 				;;
