@@ -47,7 +47,7 @@ if [ $# -eq 1 ]; then
 				;;
 			esac	
 		fi
-	else
-		echo "missing arguments" 
-		echo "Try '$0 -h' for more information."
+else
+  echo "missing arguments" 
+  echo "Try '$0 -h' for more information."
 fi
