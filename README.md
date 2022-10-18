@@ -4,8 +4,10 @@
 
 It is a script to to more easily control the dual-screen configuration.<br/>
 At the first run, the first option to launch is `-ck` which prints at the standard output the name of the two monitor connected to the system. Copy the two names into the relative variables in the script (`MONITORRT` for the right screen - `MONITORLT` for the left screen). After this task it's possible to execute the script with the other options:
-- `-on` to turn-on the right monitor
-- `-off` to turn-off the right monitor
+- `-onl` to turn-on the left monitor
+- `-onr` to turn-on the right monitor
+- `-offl` to turn-off the left monitor
+- `-offr` to turn-off the right monitor
 - `-prt` to put the left monitor in portrait mode
 - `-norm` to put the left monitor in landscape mode
 - `-h` to print the help message
@@ -23,24 +25,12 @@ To automate the script is required to put the script in the `cron` using the com
 
 ## avi2mkv
 
-TODO
-
-## bluetooth
-
-script to add to i3blocks
-
-## mr.sh
-
-TODO
-
-## net 
-
-script to add to i3blocks
+For each AVI file in a directory (taken as input), it splits the filename into name and extension. It takes the movie and its subtitles from this directory to create a single MKV file then puts it in the "OK" subdirectory 
 
 ## temp
 
-TODO 
+Gets cpu temperature and fan1 rpm from the `sensors` package 
 
-## tvr.sh
+# LeftMonitorPrimary
 
-TODO
+Gets all connected monitors, their sizes and positions, then sets the left monitor as primary.
