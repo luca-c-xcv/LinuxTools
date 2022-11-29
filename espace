@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# brief: mount a specific external drive automatically in its directory: it needs of drive label and fstab updated with this drive
+# brief: mount a specific external drive automatically in its directory: it needs drive label and fstab updated with this drive
 
 icon=/usr/share/icons/Papirus/22x22/devices/drive-removable-media-usb-pendrive.svg
 erricon=/usr/share/icons/Papirus/22x22/actions/dialog-error.svg
