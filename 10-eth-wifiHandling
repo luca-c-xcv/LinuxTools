@@ -1,0 +1,22 @@
+#!/bin/bash
+
+export LC_ALL=C
+
+ETH_STATUS=$(nmcli device | grep -w "connected" | grep "ethernet")
+
+function toggling()
+	{
+		if [[ -n "$ETH_STATUS" ]]; then
+			nmcli radio wifi off
+		else
+			nmcli radio wifi on
+		fi
+	}
+
+
+if [[ "$2" == "up" ]]; then
+	toggling
+fi
+if [[ "$2" == "down" ]]; then
+	toggling
+fi
