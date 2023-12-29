@@ -1,0 +1,94 @@
+#!/bin/bash
+
+
+
+function body_create(){
+    local IP=$1
+    local CMD=$(nmap -sL ${IP} | awk '{print $5$6}' | sed '1d;$d')
+    head="<table class=\"table\">
+        <thead>
+        <tr>
+            <th>IP</th>
+            <th>DEVICE</th>
+        </tr>
+        </thead>
+        <tbody>"
+    center=""
+        i=0
+        for line in $CMD ; do
+            ip=$(echo $IP | cut -d'/' -f1 | awk -F '.' '{print $1"."$2"."$3}')
+            ip="$ip.$i"
+            if [[ "$ip" != "$line" ]]; then
+                txt=$(echo $line | cut -d'(' -f1 | cut -d'.' -f1)
+                center+="<tr>
+                            <td>$ip</td>
+                            <td><a href='http://$ip'>$txt</a></td>
+                        </tr>"
+            else
+                center+="<tr>
+                            <td>$ip</td>
+                            <td></td>
+                        </tr>"
+            fi
+            ((i=i+1))
+        done
+    foot="</tbody>
+        </table>"
+
+    echo $head$center$foot
+}
+
+function page_creation(){
+    local IP=$1
+    if [ -n "$IP" ]; then
+        h=$(cat ./template/header.html)
+        f=$(cat ./template/footer.html)
+        c=$(body_create $1)
+        echo "$h$c$f" > index.html
+    else
+        echo "$0: empty argument"
+        usage
+        exit -1
+    fi
+}
+
+
+function usage(){
+    filename=$(basename $0)
+    echo -e "NAME"
+        echo -e "\t$filename - dhcp list in your lan"
+    echo -e "SYNOPSIS"
+        echo -e "\t$filename"
+        echo -e "\t  [-h]"
+        echo -e "\t  [-c <subnet>]"
+    echo -e "OPTIONS"
+        echo -e "\t-h"
+            echo -e "\t  print this help"
+        echo -e "\t-c <subnet>"
+            echo -e "\t  create the list in a index.html file using <subnet> IPs to scan the lan"
+            echo -e "\t  The subnet must use the syntax 'XXX.YYY.ZZZ.TTT/N' (e.g.: 10.10.08.1/24)"
+    echo -e "REQUIRES"
+        echo -e "\t nmap"
+}
+
+
+function main(){
+    while getopts 'c:h' opt; do
+        case "$opt" in
+            c)  arg="$OPTARG"
+                page_creation ${arg}
+                echo "Page created"
+            ;;
+            ?|h) usage
+            ;; 
+        esac
+    done
+    if [ $OPTIND -eq 1 ]; then
+        echo "$0: illegal option -- empty option"
+        usage
+    fi
+}
+
+
+
+main $@
